@@ -14,5 +14,12 @@ namespace Ecommerce.Shared.Entities
         [MaxLength(100)]
         public string Name { get; set; }
 
+
+        public ICollection<State> States { get; set; }
+
+
+        [Display(Name ="Estados/Departamentos")]
+        public int StatesNumber =>States==null? 0:States.Count;
+
     }
 }
