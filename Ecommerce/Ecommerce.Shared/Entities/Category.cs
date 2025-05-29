@@ -1,9 +1,5 @@
-﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ecommerce.Shared.Entities
 {
@@ -13,9 +9,14 @@ namespace Ecommerce.Shared.Entities
 
         [Display(Name = "Categoría")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [MaxLength(50)]
-        public string Name { get; set; } = string.Empty;
+        [MaxLength(100)]
+        public string Name { get; set; }
 
-        public ICollection<ProductCategory>? ProductCategories { get; set; }
+        // Relación con ProductCategory
+        public ProductCategory ProductCategory { get; set; }
+        public int ProductCategoryId { get; set; }
+
+        // Propiedad de navegación inversa para Products
+        public ICollection<Product> Products { get; set; } // ← Esta es la propiedad faltante
     }
 }
