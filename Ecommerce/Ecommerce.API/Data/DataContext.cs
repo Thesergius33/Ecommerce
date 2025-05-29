@@ -16,7 +16,11 @@ namespace Ecommerce.API.Data
 
         public DbSet<ProductCategory> ProductCategories { get; set; }
 
+        public DbSet<Category> Categories { get; set; }
+
         public DbSet<ProductImage> ProductImages { get; set; }
+
+        public DbSet<User> Users { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -29,7 +33,7 @@ namespace Ecommerce.API.Data
             modelBuilder.Entity<Product>().HasIndex(x => x.Name);
             modelBuilder.Entity<Category>().HasIndex(x => x.Name).IsUnique();
 
-            // Configuración CORREGIDA para ProductCategory:
+            // Configuración para ProductCategory:
             modelBuilder.Entity<ProductCategory>()
                 .HasKey(pc => new { pc.ProductId, pc.CategoryId });  // Define clave primaria compuesta
 
@@ -45,7 +49,7 @@ namespace Ecommerce.API.Data
 
             modelBuilder.Entity<ProductCategory>()
                 .HasOne(pc => pc.Category)
-                .WithMany(c => c.ProductCategories)
+                .WithMany(c => c.ProductCategory)
                 .HasForeignKey(pc => pc.CategoryId);
         }
     }
