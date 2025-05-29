@@ -1,7 +1,5 @@
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Ecommerce.Shared.Entities
 {
@@ -9,19 +7,25 @@ namespace Ecommerce.Shared.Entities
     {
         public int Id { get; set; }
 
-        [Display(Name = "Nombre del producto")]
+        [Display(Name = "Producto")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [MaxLength(100)]
-        public string Name { get; set; } = string.Empty;
+        public string Name { get; set; }
 
-        [Display(Name = "Descripción")]
-        public string? Description { get; set; }
+        [DataType(DataType.Currency)]
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal Price { get; set; }  // Cambiado de double a decimal para valores monetarios
 
-        [Display(Name = "Precio")]
-        [Range(0, double.MaxValue, ErrorMessage = "El precio debe ser mayor o igual a 0")]
-        public decimal Price { get; set; }
+        // Relación con ProductCategory
+        public ProductCategory ProductCategory { get; set; }
+        public int ProductCategoryId { get; set; }
 
-        public ICollection<ProductImage>? ProductImages { get; set; }
-        public ICollection<ProductCategory>? ProductCategories { get; set; }
+        // Relación con ProductImage
+        public ProductImage ProductImage { get; set; }
+        public int ProductImageId { get; set; }
+
+        // Relación CORREGIDA con Category
+        public Category Category { get; set; }  // Cambiado de object a Category
+        public int CategoryId { get; set; }     // Cambiado de object a int
     }
 }
